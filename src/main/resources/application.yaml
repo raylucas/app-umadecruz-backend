@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: app
+  datasource:
+    url: ${DATABASE_URL:jdbc:postgresql://localhost:5432/umadecruz}
+    username: ${DB_USER:admin}
+    password: ${DB_PASS:admin}
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        format_sql: true
