@@ -11,3 +11,9 @@ spring:
     properties:
       hibernate:
         format_sql: true
+
+app:
+  senha:
+    tamanho: 8
+
+
