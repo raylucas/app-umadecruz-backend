@@ -20,14 +20,14 @@ public class MyUserDetailsService implements UserDetailsService {
 
         var usuario = usuarioService.consultarPorEmail(email);
 
-      /*  if (!usuario.isPresent()) {
+        if (!usuario.isPresent()) {
             throw new UsernameNotFoundException("Usuário não encontrado");
-        }*/
+        }
 
         return org.springframework.security.core.userdetails.User
-                .withUsername("admin@gmail.com")
-                .password("{noop}123456")
-                .roles("USER")
+                .withUsername(usuario.get().getEmail())
+                .password("{noop}" + usuario.get().getSenha())
+                .roles(usuario.get().getTipo().name())
                 .build();
     }
 }
