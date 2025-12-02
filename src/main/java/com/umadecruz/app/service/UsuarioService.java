@@ -10,9 +10,11 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.Optional;
 
 @Service
 @Slf4j
@@ -26,8 +28,11 @@ public class UsuarioService {
 
     private final ModelMapper modelMapper;
 
+   // private PasswordEncoder passwordEncoder;
+
     public UsuarioDto salvar(UsuarioCriacaoDto dto){
         var usuario = modelMapper.map(dto, Usuario.class);
+      //  usuario.setSenha(passwordEncoder.encode(SenhaUtil.gerarSenha(tamanhoSenha)));
         usuario.setSenha(SenhaUtil.gerarSenha(tamanhoSenha));
         usuario.setDataCriacao(LocalDate.now());
         repository.save(usuario);
@@ -55,6 +60,10 @@ public class UsuarioService {
 
     public UsuarioDto buscarInfoUsuario(Integer id){
         return modelMapper.map(this.consultarPorId(id), UsuarioDto.class);
+    }
+
+    public Optional<Usuario> consultarPorEmail(String email){
+        return repository.findByEmail(email);
     }
 
 
