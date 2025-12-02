@@ -26,9 +26,9 @@ public class UsuarioController {
         return ResponseEntity.ok(usuarioService.atualizar(dto));
     }
 
-    @GetMapping("/email/{email}")
-    public ResponseEntity<UsuarioDto> buscar(@PathVariable String email){
-        return ResponseEntity.ok(usuarioService.buscarInfoUsuario(email));
+    @GetMapping("/id/{id}")
+    public ResponseEntity<UsuarioDto> buscarPorId(@PathVariable Integer id){
+        return ResponseEntity.ok(usuarioService.buscarInfoUsuario(id));
     }
 
 }

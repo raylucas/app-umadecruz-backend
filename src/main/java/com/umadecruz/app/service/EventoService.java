@@ -2,7 +2,7 @@ package com.umadecruz.app.service;
 
 import com.umadecruz.app.dto.EventoAtualizacaoDto;
 import com.umadecruz.app.dto.EventoCriacaoDto;
-import com.umadecruz.app.dto.EventoResponseDto;
+import com.umadecruz.app.dto.EventoDto;
 import com.umadecruz.app.model.Evento;
 import com.umadecruz.app.repository.EventoRepository;
 import com.umadecruz.app.util.MapperUtil;
@@ -25,28 +25,33 @@ public class EventoService {
 
     private final UsuarioService usuarioService;
 
-    public EventoResponseDto salvar(EventoCriacaoDto requestDto){
+    public EventoDto salvar(EventoCriacaoDto requestDto){
         var evento = modelMapper.map(requestDto, Evento.class);
-        var usuarioEvento = usuarioService.consultarPorEmail(requestDto.getEmailUsuario());
+        var usuarioEvento = usuarioService.consultarPorId(requestDto.getIdUsuario());
         evento.setUsuario(usuarioEvento);
         evento.setDataCriacao(LocalDate.now());
         repository.save(evento);
-        return modelMapper.map(evento, EventoResponseDto.class);
+        return modelMapper.map(evento, EventoDto.class);
     }
 
-    public EventoResponseDto atualizar(EventoAtualizacaoDto requestDto){
-        var evento = repository.findById(requestDto.getId()).orElseThrow(() -> new RuntimeException("Usuario não encontrado"));
+    public EventoDto atualizar(EventoAtualizacaoDto requestDto){
+        var evento = repository.findById(requestDto.getId()).orElseThrow(() -> new RuntimeException("Evento não encontrado"));
         evento.setTitulo(requestDto.getTitulo());
         evento.setDescricao(requestDto.getDescricao());
         evento.setData(requestDto.getData());
         evento.setInicio(requestDto.getInicio());
         evento.setFim(requestDto.getFim());
         repository.save(evento);
-        return modelMapper.map(evento, EventoResponseDto.class);
+        return modelMapper.map(evento, EventoDto.class);
     }
 
-    public List<EventoResponseDto> consultarTodosEventos(){
+    public List<EventoDto> consultarTodosEventos(){
         var eventos = repository.findAll();
-        return MapperUtil.mapList(eventos, EventoResponseDto.class, modelMapper);
+        return MapperUtil.mapList(eventos, EventoDto.class, modelMapper);
+    }
+
+    public void excluir(Integer id){
+        var evento = repository.findById(id).orElseThrow(() -> new RuntimeException("Evento não encontrado"));
+        repository.delete(evento);
     }
 }

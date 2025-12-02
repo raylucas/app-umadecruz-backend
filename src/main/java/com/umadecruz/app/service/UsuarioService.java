@@ -49,12 +49,12 @@ public class UsuarioService {
         return modelMapper.map(usuario, UsuarioDto.class);
     }
 
-    public Usuario consultarPorEmail(String email){
-        return repository.findByEmail(email).orElseThrow(() -> new RuntimeException("Usuario não encontrado"));
+    public Usuario consultarPorId(Integer id){
+        return repository.findById(id).orElseThrow(() -> new RuntimeException("Usuario não encontrado"));
     }
 
-    public UsuarioDto buscarInfoUsuario(String email){
-        return modelMapper.map(this.consultarPorEmail(email), UsuarioDto.class);
+    public UsuarioDto buscarInfoUsuario(Integer id){
+        return modelMapper.map(this.consultarPorId(id), UsuarioDto.class);
     }
 
 

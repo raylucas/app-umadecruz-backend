@@ -1,5 +1,6 @@
 package com.umadecruz.app.dto;
 
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -10,7 +11,6 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.time.LocalTime;
 
 @Builder
 @Data
@@ -18,33 +18,22 @@ import java.time.LocalTime;
 @AllArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class EventoResponseDto implements Serializable {
+public class AvisoDto implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @JsonProperty("id")
-    private Integer id;
+    private Integer  id;
 
     @JsonProperty("titulo")
     private String titulo;
 
-    @JsonProperty("descricao")
-    private String descricao;
+    @JsonProperty("corpo")
+    private String corpo;
 
-    @JsonProperty("data")
-    private LocalDate data;
-
-    @JsonProperty("inicio")
-    private LocalTime inicio;
-
-    @JsonProperty("fim")
-    private LocalTime fim;
-
-    @JsonProperty("usuario")
-    private UsuarioDto usuario;
+    @JsonProperty("idUsuario")
+    private Integer idUsuario;
 
     @JsonProperty("dataCriacao")
     private LocalDate dataCriacao;
-
-
 }
