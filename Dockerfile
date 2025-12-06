@@ -9,6 +9,9 @@ COPY mvnw .
 COPY .mvn .mvn
 COPY pom.xml .
 
+# Dá permissão para executar o mvnw
+RUN chmod +x mvnw
+
 # Baixa dependências antes para aproveitar cache
 RUN ./mvnw dependency:go-offline
 
