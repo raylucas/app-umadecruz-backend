@@ -1,8 +1,11 @@
 package com.umadecruz.app.service;
 
+import com.umadecruz.app.dto.AlterarSenhaDto;
 import com.umadecruz.app.dto.UsuarioAtualizacaoDto;
 import com.umadecruz.app.dto.UsuarioCriacaoDto;
 import com.umadecruz.app.dto.UsuarioDto;
+import com.umadecruz.app.exception.SenhaAntigaIncorretaException;
+import com.umadecruz.app.exception.UsuarioNaoEncontradoException;
 import com.umadecruz.app.model.Usuario;
 import com.umadecruz.app.repository.UsuarioRepository;
 import com.umadecruz.app.util.SenhaUtil;
@@ -28,19 +31,21 @@ public class UsuarioService {
 
     private final ModelMapper modelMapper;
 
-   // private PasswordEncoder passwordEncoder;
+    private final PasswordEncoder passwordEncoder;
 
     public UsuarioDto salvar(UsuarioCriacaoDto dto){
         var usuario = modelMapper.map(dto, Usuario.class);
-      //  usuario.setSenha(passwordEncoder.encode(SenhaUtil.gerarSenha(tamanhoSenha)));
-        usuario.setSenha(SenhaUtil.gerarSenha(tamanhoSenha));
+        var senha = SenhaUtil.gerarSenha(tamanhoSenha);
+        usuario.setSenha(passwordEncoder.encode(senha));
         usuario.setDataCriacao(LocalDate.now());
         repository.save(usuario);
-        return modelMapper.map(usuario, UsuarioDto.class);
+        var usuarioDto = modelMapper.map(usuario, UsuarioDto.class);
+        usuarioDto.setSenha(senha);
+        return usuarioDto;
     }
 
     public UsuarioDto atualizar(UsuarioAtualizacaoDto dto){
-        var usuario = repository.findById(dto.getId()).orElseThrow(() -> new RuntimeException("Usuario não encontrado"));
+        var usuario = repository.findById(dto.getId()).orElseThrow(UsuarioNaoEncontradoException::new);
         usuario.setNome(dto.getNome());
         usuario.setDataNascimento(dto.getDataNascimento());
         usuario.setTelefone(dto.getTelefone());
@@ -54,8 +59,18 @@ public class UsuarioService {
         return modelMapper.map(usuario, UsuarioDto.class);
     }
 
+    public void alterarSenha(AlterarSenhaDto dto){
+
+        var usuario = this.consultarPorEmail(dto.getEmail()).orElseThrow(UsuarioNaoEncontradoException::new);
+        if(!passwordEncoder.matches(dto.getSenhaAntiga(), usuario.getSenha())){
+            throw new SenhaAntigaIncorretaException();
+        }
+        usuario.setSenha(passwordEncoder.encode(dto.getNovaSenha()));
+        repository.save(usuario);
+    }
+
     public Usuario consultarPorId(Integer id){
-        return repository.findById(id).orElseThrow(() -> new RuntimeException("Usuario não encontrado"));
+        return repository.findById(id).orElseThrow(UsuarioNaoEncontradoException::new);
     }
 
     public UsuarioDto buscarInfoUsuario(Integer id){

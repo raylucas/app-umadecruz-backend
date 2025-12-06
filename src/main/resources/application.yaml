@@ -2,15 +2,22 @@ spring:
   application:
     name: app
   datasource:
-    url: ${DATABASE_URL:jdbc:postgresql://localhost:5432/umadecruz}
-    username: ${DB_USER:admin}
-    password: ${DB_PASS:admin}
+    url: ${SPRING_DATASOURCE_URL}
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
   jpa:
     hibernate:
       ddl-auto: validate
     properties:
       hibernate:
         format_sql: true
+
+server:
+  port: ${PORT}
+
+jwt:
+  secret: ${JWT_SECRET}
+  expiration: ${JWT_EXPIRATION}
 
 app:
   senha:
