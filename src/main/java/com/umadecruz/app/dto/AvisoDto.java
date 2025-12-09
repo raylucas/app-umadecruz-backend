@@ -31,8 +31,8 @@ public class AvisoDto implements Serializable {
     @JsonProperty("corpo")
     private String corpo;
 
-    @JsonProperty("idUsuario")
-    private Integer idUsuario;
+    @JsonProperty("usuario")
+    private UsuarioDto usuario;
 
     @JsonProperty("dataCriacao")
     private LocalDate dataCriacao;

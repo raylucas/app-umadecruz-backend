@@ -50,6 +50,13 @@ public class EventoService {
         return MapperUtil.mapList(eventos, EventoDto.class, modelMapper);
     }
 
+    public List<EventoDto> consultarTodosEventosSemana(){
+        LocalDate hoje = LocalDate.now();
+        LocalDate fimSemana = hoje.plusDays(6);
+        var eventos = repository.findByDataBetween(hoje, fimSemana);
+        return MapperUtil.mapList(eventos, EventoDto.class, modelMapper);
+    }
+
     public void excluir(Integer id){
         var evento = repository.findById(id).orElseThrow(() -> new RuntimeException("Evento não encontrado"));
         repository.delete(evento);

@@ -40,8 +40,9 @@ public class AvisoService {
         return modelMapper.map(aviso, AvisoDto.class);
     }
 
-    public List<AvisoDto> consultarTodosAvisos(){
-        var avisos = repository.findAll();
+    public List<AvisoDto> consultarAvisosHoje(){
+        LocalDate hoje = LocalDate.now();
+        var avisos = repository.findByDataCriacao(hoje);
         return MapperUtil.mapList(avisos, AvisoDto.class, modelMapper);
     }
 

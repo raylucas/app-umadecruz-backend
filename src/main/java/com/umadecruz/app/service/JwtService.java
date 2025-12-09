@@ -1,5 +1,6 @@
 package com.umadecruz.app.service;
 
+import com.umadecruz.app.exception.UsuarioNaoEncontradoException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
@@ -22,13 +23,18 @@ public class JwtService {
     @Value("${jwt.expiration}")
     private Long expiration;
 
+    private final UsuarioService usuarioService;
+
     private Key getSigningKey() {
         return Keys.hmacShaKeyFor(secret.getBytes());
     }
 
     public String generateToken(String email) {
+        var usuario = usuarioService.consultarPorEmail(email).orElseThrow(UsuarioNaoEncontradoException::new);
         return Jwts.builder()
                 .setSubject(email)
+                .claim("id", String.valueOf(usuario.getId()))
+                .claim("role", usuario.getTipo().name())
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + expiration))
                 .signWith(getSigningKey(), SignatureAlgorithm.HS256)

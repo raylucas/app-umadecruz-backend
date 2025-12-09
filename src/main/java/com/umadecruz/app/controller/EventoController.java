@@ -26,9 +26,14 @@ public class EventoController {
         return ResponseEntity.ok(eventoService.atualizar(dto));
     }
 
-    @GetMapping
+    @GetMapping("/eventos")
     public ResponseEntity<List<EventoDto>> buscarTodos(){
         return ResponseEntity.ok(eventoService.consultarTodosEventos());
+    }
+
+    @GetMapping("/eventos/semana")
+    public ResponseEntity<List<EventoDto>> buscarTodosSemana(){
+        return ResponseEntity.ok(eventoService.consultarTodosEventosSemana());
     }
 
     @DeleteMapping("/id/{id}")
