@@ -2,6 +2,7 @@ package com.umadecruz.app.controller;
 
 import com.umadecruz.app.dto.*;
 import com.umadecruz.app.service.EventoService;
+import com.umadecruz.app.service.UsuarioEventoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +16,8 @@ import java.util.List;
 public class EventoController {
 
     private final EventoService eventoService;
+
+    private final UsuarioEventoService usuarioEventoService;
 
     @PostMapping
     public ResponseEntity<EventoDto> salvar(@RequestBody EventoCriacaoDto dto){
@@ -44,6 +47,16 @@ public class EventoController {
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
+    }
+
+    @PostMapping("/usuario/presenca")
+    public ResponseEntity<UsuarioEventoDto> marcarPresencao(@RequestBody UsuarioEventoPresencaDto dto){
+        return ResponseEntity.ok(usuarioEventoService.salvar(dto));
+    }
+
+    @GetMapping("/{idEvento}/usuario/{idUsuario}")
+    public ResponseEntity<UsuarioEventoDto> consultarUsuarioEvento(@PathVariable Integer idEvento, @PathVariable Integer idUsuario){
+        return ResponseEntity.ok(usuarioEventoService.consultarUsuarioEvento(idEvento, idUsuario));
     }
 
 }
