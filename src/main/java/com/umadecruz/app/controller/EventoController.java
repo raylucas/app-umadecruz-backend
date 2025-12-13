@@ -40,7 +40,7 @@ public class EventoController {
     }
 
     @DeleteMapping("/id/{id}")
-    public ResponseEntity<?> excluir(@PathVariable Integer id){
+    public ResponseEntity<Void> excluir(@PathVariable Integer id){
         try {
             eventoService.excluir(id);
             return ResponseEntity.ok().build();
