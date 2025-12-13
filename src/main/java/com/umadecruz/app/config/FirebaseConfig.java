@@ -5,20 +5,33 @@ import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
 import jakarta.annotation.PostConstruct;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.io.ClassPathResource;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 
 @Configuration
 public class FirebaseConfig {
 
     @PostConstruct
     public void init() throws IOException {
-        var stream = new ClassPathResource("umadecruz-56cd5-firebase-adminsdk-fbsvc-a5f129e594.json")
-                .getInputStream();
+
+        String firebaseJson = System.getenv("FIREBASE_SERVICE_ACCOUNT");
+
+        if (firebaseJson == null || firebaseJson.isBlank()) {
+            throw new IllegalStateException(
+                    "Variável FIREBASE_SERVICE_ACCOUNT não definida"
+            );
+        }
+
+        InputStream serviceAccount =
+                new ByteArrayInputStream(
+                        firebaseJson.getBytes(StandardCharsets.UTF_8)
+                );
 
         FirebaseOptions options = FirebaseOptions.builder()
-                .setCredentials(GoogleCredentials.fromStream(stream))
+                .setCredentials(GoogleCredentials.fromStream(serviceAccount))
                 .build();
 
         if (FirebaseApp.getApps().isEmpty()) {
