@@ -2,6 +2,7 @@ package com.umadecruz.app.controller;
 
 import com.umadecruz.app.dto.*;
 import com.umadecruz.app.service.EventoService;
+import com.umadecruz.app.service.UsuarioEventoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +17,8 @@ public class EventoController {
 
     private final EventoService eventoService;
 
+    private final UsuarioEventoService usuarioEventoService;
+
     @PostMapping
     public ResponseEntity<EventoDto> salvar(@RequestBody EventoCriacaoDto dto){
         return ResponseEntity.ok(eventoService.salvar(dto));
@@ -26,9 +29,14 @@ public class EventoController {
         return ResponseEntity.ok(eventoService.atualizar(dto));
     }
 
-    @GetMapping
+    @GetMapping("/eventos")
     public ResponseEntity<List<EventoDto>> buscarTodos(){
         return ResponseEntity.ok(eventoService.consultarTodosEventos());
+    }
+
+    @GetMapping("/eventos/semana")
+    public ResponseEntity<List<EventoDto>> buscarTodosSemana(){
+        return ResponseEntity.ok(eventoService.consultarTodosEventosSemana());
     }
 
     @DeleteMapping("/id/{id}")
@@ -39,6 +47,16 @@ public class EventoController {
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
+    }
+
+    @PostMapping("/usuario/presenca")
+    public ResponseEntity<UsuarioEventoDto> marcarPresencao(@RequestBody UsuarioEventoPresencaDto dto){
+        return ResponseEntity.ok(usuarioEventoService.salvar(dto));
+    }
+
+    @GetMapping("/{idEvento}/usuario/{idUsuario}")
+    public ResponseEntity<UsuarioEventoDto> consultarUsuarioEvento(@PathVariable Integer idEvento, @PathVariable Integer idUsuario){
+        return ResponseEntity.ok(usuarioEventoService.consultarUsuarioEvento(idEvento, idUsuario));
     }
 
 }

@@ -35,7 +35,7 @@ public class EventoService {
     }
 
     public EventoDto atualizar(EventoAtualizacaoDto requestDto){
-        var evento = repository.findById(requestDto.getId()).orElseThrow(() -> new RuntimeException("Evento não encontrado"));
+        var evento = this.consultarPorId(requestDto.getId());
         evento.setTitulo(requestDto.getTitulo());
         evento.setDescricao(requestDto.getDescricao());
         evento.setData(requestDto.getData());
@@ -50,8 +50,19 @@ public class EventoService {
         return MapperUtil.mapList(eventos, EventoDto.class, modelMapper);
     }
 
+    public List<EventoDto> consultarTodosEventosSemana(){
+        LocalDate hoje = LocalDate.now();
+        LocalDate fimSemana = hoje.plusDays(6);
+        var eventos = repository.findByDataBetween(hoje, fimSemana);
+        return MapperUtil.mapList(eventos, EventoDto.class, modelMapper);
+    }
+
     public void excluir(Integer id){
         var evento = repository.findById(id).orElseThrow(() -> new RuntimeException("Evento não encontrado"));
         repository.delete(evento);
+    }
+
+    public Evento consultarPorId(Integer id){
+        return repository.findById(id).orElseThrow(() -> new RuntimeException("Evento não encontrado"));
     }
 }

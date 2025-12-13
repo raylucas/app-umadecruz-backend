@@ -81,5 +81,9 @@ public class UsuarioService {
         return repository.findByEmail(email);
     }
 
+    public Integer consultarIdPorEmail(String email){
+        return repository.findIdByEmail(email);
+    }
+
 
 }

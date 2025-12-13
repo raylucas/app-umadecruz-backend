@@ -26,9 +26,9 @@ public class AvisoController {
         return ResponseEntity.ok(avisoService.atualizar(dto));
     }
 
-    @GetMapping
+    @GetMapping("/avisos/hoje")
     public ResponseEntity<List<AvisoDto>> buscarTodos(){
-        return ResponseEntity.ok(avisoService.consultarTodosAvisos());
+        return ResponseEntity.ok(avisoService.consultarAvisosHoje());
     }
 
     @DeleteMapping("/id/{id}")
