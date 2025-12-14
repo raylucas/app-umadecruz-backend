@@ -1,6 +1,7 @@
 package com.umadecruz.app.service;
 
 import com.google.firebase.messaging.FirebaseMessaging;
+import com.google.firebase.messaging.FirebaseMessagingException;
 import com.google.firebase.messaging.Message;
 import com.google.firebase.messaging.Notification;
 import lombok.extern.slf4j.Slf4j;
@@ -26,9 +27,18 @@ public class PushNotificationService {
                     .build();
 
             try {
-                FirebaseMessaging.getInstance().send(message);
+                String messageId = FirebaseMessaging.getInstance().send(message);
+                log.info("Push enviado com sucesso | token={} | messageId={}", token, messageId);
+            } catch (FirebaseMessagingException e) {
+                log.error(
+                        "Erro ao enviar push | token={} | errorCode={} | message={}",
+                        token,
+                        e.getMessagingErrorCode(),
+                        e.getMessage(),
+                        e
+                );
             } catch (Exception e) {
-                log.error("Erro de envio ao token: {} " + e.getMessage(), token);
+                log.error("Erro inesperado ao enviar push | token={}", token, e);
             }
         });
     }
