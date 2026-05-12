@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.security.access.prepost.PreAuthorize;
 
 
 @RestController
@@ -19,28 +20,28 @@ public class UsuarioController {
     private final UsuarioService usuarioService;
 
     @PostMapping
+    @PreAuthorize("hasAnyRole('USER', 'FINANCIAL', 'ADMIN')")
     public ResponseEntity<UsuarioDto> salvar(@RequestBody UsuarioCriacaoDto dto){
         return ResponseEntity.ok(usuarioService.salvar(dto));
     }
 
     @PutMapping
+    @PreAuthorize("hasAnyRole('USER', 'FINANCIAL', 'ADMIN')")
     public ResponseEntity<UsuarioDto> atualizar(@RequestBody UsuarioAtualizacaoDto dto){
         return ResponseEntity.ok(usuarioService.atualizar(dto));
     }
 
     @GetMapping("/id/{id}")
+    @PreAuthorize("hasAnyRole('USER', 'FINANCIAL', 'ADMIN')")
     public ResponseEntity<UsuarioDto> buscarPorId(@PathVariable Integer id){
         return ResponseEntity.ok(usuarioService.buscarInfoUsuario(id));
     }
 
     @PutMapping("/alterarSenha")
+    @PreAuthorize("hasAnyRole('USER', 'FINANCIAL', 'ADMIN')")
     public ResponseEntity<?> excluir(@RequestBody AlterarSenhaDto dto){
-        try {
-            usuarioService.alterarSenha(dto);
-            return ResponseEntity.ok().build();
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        }
+        usuarioService.alterarSenha(dto);
+        return ResponseEntity.ok().build();
     }
 
 }

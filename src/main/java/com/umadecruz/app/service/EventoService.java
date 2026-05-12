@@ -5,6 +5,7 @@ import com.umadecruz.app.dto.EventoCriacaoDto;
 import com.umadecruz.app.dto.EventoDto;
 import com.umadecruz.app.model.Evento;
 import com.umadecruz.app.repository.EventoRepository;
+import com.umadecruz.app.exception.EventoNaoEncontradoException;
 import com.umadecruz.app.util.MapperUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -58,11 +59,11 @@ public class EventoService {
     }
 
     public void excluir(Integer id){
-        var evento = repository.findById(id).orElseThrow(() -> new RuntimeException("Evento não encontrado"));
+        var evento = repository.findById(id).orElseThrow(EventoNaoEncontradoException::new);
         repository.delete(evento);
     }
 
     public Evento consultarPorId(Integer id){
-        return repository.findById(id).orElseThrow(() -> new RuntimeException("Evento não encontrado"));
+        return repository.findById(id).orElseThrow(EventoNaoEncontradoException::new);
     }
 }

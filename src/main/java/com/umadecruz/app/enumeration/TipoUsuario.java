@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 public enum TipoUsuario {
 
     ADMIN,
+    FINANCIAL,
     USER;
 
 }

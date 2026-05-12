@@ -4,6 +4,7 @@ import com.umadecruz.app.dto.*;
 import com.umadecruz.app.model.Aviso;
 import com.umadecruz.app.model.Token;
 import com.umadecruz.app.repository.AvisoRepository;
+import com.umadecruz.app.exception.AvisoNaoEncontradoException;
 import com.umadecruz.app.util.MapperUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -41,7 +42,7 @@ public class AvisoService {
     }
 
     public AvisoDto atualizar(AvisoAtualizacaoDto dto){
-        var aviso = repository.findById(dto.getId()).orElseThrow(() -> new RuntimeException("Aviso não encontrado"));
+        var aviso = repository.findById(dto.getId()).orElseThrow(AvisoNaoEncontradoException::new);
         aviso.setTitulo(dto.getTitulo());
         aviso.setCorpo(dto.getCorpo());
         repository.save(aviso);
@@ -55,7 +56,7 @@ public class AvisoService {
     }
 
     public void excluir(Integer id){
-        var aviso = repository.findById(id).orElseThrow(() -> new RuntimeException("Aviso não encontrado"));
+        var aviso = repository.findById(id).orElseThrow(AvisoNaoEncontradoException::new);
         repository.delete(aviso);
     }
 

@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.security.access.prepost.PreAuthorize;
 
 import jakarta.validation.Valid;
 import java.time.LocalDate;
@@ -22,11 +23,13 @@ public class MovimentacaoFinanceiraController {
     private final MovimentacaoFinanceiraService movimentacaoFinanceiraService;
 
     @PostMapping("/movimentacoes")
+    @PreAuthorize("hasAnyRole('FINANCIAL', 'ADMIN')")
     public ResponseEntity<MovimentacaoResponseDto> salvar(@Valid @RequestBody MovimentacaoRequestDto dto) {
         return ResponseEntity.ok(movimentacaoFinanceiraService.salvar(dto));
     }
 
     @PutMapping("/movimentacoes/{id}")
+    @PreAuthorize("hasAnyRole('FINANCIAL', 'ADMIN')")
     public ResponseEntity<MovimentacaoResponseDto> atualizar(
             @Valid @RequestBody MovimentacaoRequestDto dto, 
             @PathVariable Integer id) {
@@ -34,11 +37,13 @@ public class MovimentacaoFinanceiraController {
     }
 
     @GetMapping("/movimentacoes/{id}")
+    @PreAuthorize("hasAnyRole('FINANCIAL', 'ADMIN')")
     public ResponseEntity<MovimentacaoResponseDto> buscarPorId(@PathVariable Integer id) {
         return ResponseEntity.ok(movimentacaoFinanceiraService.buscarPorId(id));
     }
 
     @GetMapping("/movimentacoes")
+    @PreAuthorize("hasAnyRole('FINANCIAL', 'ADMIN')")
     public ResponseEntity<List<MovimentacaoResponseDto>> buscarTodos(
             @RequestParam(required = false) TipoMovimentacao tipo,
             @RequestParam(required = false) TipoConta tipoConta,
@@ -51,21 +56,20 @@ public class MovimentacaoFinanceiraController {
     }
 
     @DeleteMapping("/movimentacoes/{id}")
+    @PreAuthorize("hasAnyRole('FINANCIAL', 'ADMIN')")
     public ResponseEntity<Void> excluir(@PathVariable Integer id) {
-        try {
-            movimentacaoFinanceiraService.excluir(id);
-            return ResponseEntity.ok().build();
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        }
+        movimentacaoFinanceiraService.excluir(id);
+        return ResponseEntity.ok().build();
     }
 
     @GetMapping("/relatorios/saldo-atual")
+    @PreAuthorize("hasAnyRole('FINANCIAL', 'ADMIN')")
     public ResponseEntity<SaldoAtualDto> consultarSaldoAtual() {
         return ResponseEntity.ok(movimentacaoFinanceiraService.consultarSaldoAtual());
     }
 
     @GetMapping("/relatorios/resumo")
+    @PreAuthorize("hasAnyRole('FINANCIAL', 'ADMIN')")
     public ResponseEntity<ResumoFinanceiroDto> consultarResumo(
             @RequestParam LocalDate dataInicio,
             @RequestParam LocalDate dataFim) {
@@ -73,6 +77,7 @@ public class MovimentacaoFinanceiraController {
     }
 
     @GetMapping("/relatorios/por-categoria")
+    @PreAuthorize("hasAnyRole('FINANCIAL', 'ADMIN')")
     public ResponseEntity<List<MovimentacaoPorCategoriaDto>> consultarPorCategoria(
             @RequestParam LocalDate dataInicio,
             @RequestParam LocalDate dataFim) {
@@ -80,6 +85,7 @@ public class MovimentacaoFinanceiraController {
     }
 
     @GetMapping("/relatorios/fluxo-diario")
+    @PreAuthorize("hasAnyRole('FINANCIAL', 'ADMIN')")
     public ResponseEntity<List<FluxoCaixaDiarioDto>> consultarFluxoDiario(
             @RequestParam LocalDate dataInicio,
             @RequestParam LocalDate dataFim) {
@@ -87,6 +93,7 @@ public class MovimentacaoFinanceiraController {
     }
 
     @GetMapping("/relatorios/por-conta")
+    @PreAuthorize("hasAnyRole('FINANCIAL', 'ADMIN')")
     public ResponseEntity<List<MovimentacaoPorContaDto>> consultarPorConta(
             @RequestParam LocalDate dataInicio,
             @RequestParam LocalDate dataFim) {
@@ -94,6 +101,7 @@ public class MovimentacaoFinanceiraController {
     }
 
     @GetMapping("/relatorios/maiores-movimentacoes")
+    @PreAuthorize("hasAnyRole('FINANCIAL', 'ADMIN')")
     public ResponseEntity<List<MaiorMovimentacaoDto>> consultarMaioresMovimentacoes(
             @RequestParam LocalDate dataInicio,
             @RequestParam LocalDate dataFim,

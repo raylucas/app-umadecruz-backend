@@ -4,6 +4,8 @@ import com.umadecruz.app.dto.*;
 import com.umadecruz.app.enumeration.StatusMovimentacao;
 import com.umadecruz.app.enumeration.TipoConta;
 import com.umadecruz.app.enumeration.TipoMovimentacao;
+import com.umadecruz.app.exception.MovimentacaoInvalidaException;
+import com.umadecruz.app.exception.MovimentacaoJaCanceladaException;
 import com.umadecruz.app.exception.MovimentacaoNaoEncontradaException;
 import com.umadecruz.app.exception.SaldoInsuficienteException;
 import com.umadecruz.app.model.MovimentacaoFinanceira;
@@ -45,7 +47,7 @@ public class MovimentacaoFinanceiraService {
         var movimentacao = consultarPorId(id);
         
         if (movimentacao.getStatus() == StatusMovimentacao.CANCELADA) {
-            throw new RuntimeException("Não é possível atualizar uma movimentação cancelada");
+            throw new MovimentacaoJaCanceladaException("Não é possível atualizar uma movimentação cancelada");
         }
 
         modelMapper.map(requestDto, movimentacao);
@@ -102,7 +104,7 @@ public class MovimentacaoFinanceiraService {
         var movimentacao = consultarPorId(id);
         
         if (movimentacao.getStatus() == StatusMovimentacao.CANCELADA) {
-            throw new RuntimeException("Movimentação já está cancelada");
+            throw new MovimentacaoJaCanceladaException("Movimentação já está cancelada");
         }
 
         movimentacao.setStatus(StatusMovimentacao.CANCELADA);
@@ -259,15 +261,15 @@ public class MovimentacaoFinanceiraService {
 
     private void validarMovimentacao(MovimentacaoRequestDto requestDto) {
         if (requestDto.getValor().compareTo(BigDecimal.ZERO) <= 0) {
-            throw new RuntimeException("O valor deve ser maior que zero");
+            throw new MovimentacaoInvalidaException("O valor deve ser maior que zero");
         }
 
         if (requestDto.getDataMovimentacao().isAfter(LocalDate.now())) {
-            throw new RuntimeException("A data da movimentação não pode ser futura");
+            throw new MovimentacaoInvalidaException("A data da movimentação não pode ser futura");
         }
 
         if (requestDto.getDescricao() == null || requestDto.getDescricao().trim().isEmpty()) {
-            throw new RuntimeException("A descrição é obrigatória");
+            throw new MovimentacaoInvalidaException("A descrição é obrigatória");
         }
 
         if (requestDto.getTipoMovimentacao() == TipoMovimentacao.SAIDA) {

@@ -19,12 +19,8 @@ public class TokenController {
 
     @PostMapping
     public ResponseEntity<Void> registrar(@RequestBody TokenDto dto) {
-        try {
-            service.registrar(dto);
-            return ResponseEntity.ok().build();
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        }
+        service.registrar(dto);
+        return ResponseEntity.ok().build();
     }
 
 }
