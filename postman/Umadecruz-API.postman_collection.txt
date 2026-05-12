@@ -1,0 +1,1049 @@
+{
+	"info": {
+		"_postman_id": "f1c2d3e4-a5b6-c7d8-e9f0-123456789abc",
+		"name": "Umadecruz API - Completa",
+		"description": "Collection completa com todos os endpoints da API Umadecruz",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Autenticação",
+			"item": [
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"admin@umadecruz.com\",\n  \"senha\": \"123456\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/auth/login",
+							"host": ["{{baseUrl}}"],
+							"path": ["auth", "login"]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Usuários",
+			"item": [
+				{
+					"name": "Criar Usuário",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"nome\": \"João Silva\",\n  \"email\": \"joao.silva@umadecruz.com\",\n  \"tipo\": \"USER\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/usuario",
+							"host": ["{{baseUrl}}"],
+							"path": ["usuario"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar Usuário por ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/usuario/id/1",
+							"host": ["{{baseUrl}}"],
+							"path": ["usuario", "id", "1"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Atualizar Usuário",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"id\": 1,\n  \"nome\": \"João Silva Atualizado\",\n  \"email\": \"joao.silva@umadecruz.com\",\n  \"dataNascimento\": \"1990-05-15\",\n  \"telefone\": \"(11) 98765-4321\",\n  \"endereco\": \"Rua das Flores, 123\",\n  \"dataBatismo\": \"2020-01-15\",\n  \"congregacao\": \"Sede\",\n  \"tipo\": \"USER\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/usuario",
+							"host": ["{{baseUrl}}"],
+							"path": ["usuario"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Alterar Senha",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"joao.silva@umadecruz.com\",\n  \"senhaAtual\": \"123456\",\n  \"novaSenha\": \"novasenha123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/usuario/alterarSenha",
+							"host": ["{{baseUrl}}"],
+							"path": ["usuario", "alterarSenha"]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Eventos",
+			"item": [
+				{
+					"name": "Criar Evento",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"titulo\": \"Encontro de Jovens\",\n  \"descricao\": \"Encontro mensal do grupo de jovens para estudo e comunhão\",\n  \"data\": \"2024-05-20\",\n  \"inicio\": \"19:00:00\",\n  \"fim\": \"21:00:00\",\n  \"idUsuario\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/evento",
+							"host": ["{{baseUrl}}"],
+							"path": ["evento"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar Todos os Eventos",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/evento/eventos",
+							"host": ["{{baseUrl}}"],
+							"path": ["evento", "eventos"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar Eventos da Semana",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/evento/eventos/semana",
+							"host": ["{{baseUrl}}"],
+							"path": ["evento", "eventos", "semana"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Atualizar Evento",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"id\": 1,\n  \"titulo\": \"Encontro de Jovens - Atualizado\",\n  \"descricao\": \"Encontro mensal do grupo de jovens para estudo e comunhão - Tema: Fé e Juventude\",\n  \"data\": \"2024-05-20\",\n  \"inicio\": \"19:00:00\",\n  \"fim\": \"22:00:00\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/evento",
+							"host": ["{{baseUrl}}"],
+							"path": ["evento"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Excluir Evento",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/evento/id/1",
+							"host": ["{{baseUrl}}"],
+							"path": ["evento", "id", "1"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Marcar Presença em Evento",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"idEvento\": 1,\n  \"idUsuario\": 1,\n  \"presente\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/evento/usuario/presenca",
+							"host": ["{{baseUrl}}"],
+							"path": ["evento", "usuario", "presenca"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Consultar Presença em Evento",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/evento/1/usuario/1",
+							"host": ["{{baseUrl}}"],
+							"path": ["evento", "1", "usuario", "1"]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Avisos",
+			"item": [
+				{
+					"name": "Criar Aviso",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"titulo\": \"Aviso Importante\",\n  \"corpo\": \"Não se esqueçam do encontro de jovens deste sábado às 19h. Traçam seus amigos!\",\n  \"idUsuario\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/aviso",
+							"host": ["{{baseUrl}}"],
+							"path": ["aviso"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar Avisos de Hoje",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/aviso/avisos/hoje",
+							"host": ["{{baseUrl}}"],
+							"path": ["aviso", "avisos", "hoje"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Atualizar Aviso",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"id\": 1,\n  \"titulo\": \"Aviso Atualizado\",\n  \"corpo\": \"Encontro de jovens mudado para domingo às 18h. Confirmem presença!\",\n  \"dataCriacao\": \"2024-05-11\",\n  \"dataInicio\": \"2024-05-11\",\n  \"dataFim\": \"2024-05-15\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/aviso",
+							"host": ["{{baseUrl}}"],
+							"path": ["aviso"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Excluir Aviso",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/aviso/id/1",
+							"host": ["{{baseUrl}}"],
+							"path": ["aviso", "id", "1"]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Tokens",
+			"item": [
+				{
+					"name": "Registrar Token",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"token\": \"fcm_token_aqui\",\n  \"idUsuario\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/token",
+							"host": ["{{baseUrl}}"],
+							"path": ["token"]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Movimentações Financeiras",
+			"item": [
+				{
+					"name": "Criar Movimentação",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"tipoMovimentacao\": \"ENTRADA\",\n  \"tipoConta\": \"CONTA_DIGITAL\",\n  \"categoria\": \"VENDA\",\n  \"descricao\": \"Venda de material para evento\",\n  \"valor\": 150.50,\n  \"dataMovimentacao\": \"2024-05-11\",\n  \"status\": \"CONFIRMADA\",\n  \"observacao\": \"Pagamento recebido via transferência bancária\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/financeiro/movimentacoes",
+							"host": ["{{baseUrl}}"],
+							"path": ["financeiro", "movimentacoes"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar Movimentação por ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/financeiro/movimentacoes/1",
+							"host": ["{{baseUrl}}"],
+							"path": ["financeiro", "movimentacoes", "1"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar Movimentações (com filtros)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/financeiro/movimentacoes?tipo=ENTRADA&tipoConta=CONTA_DIGITAL&status=CONFIRMADA&dataInicio=2024-05-01&dataFim=2024-05-31",
+							"host": ["{{baseUrl}}"],
+							"path": ["financeiro", "movimentacoes"],
+							"query": [
+								{
+									"key": "tipo",
+									"value": "ENTRADA",
+									"description": "Tipo da movimentação (ENTRADA ou SAIDA)"
+								},
+								{
+									"key": "tipoConta",
+									"value": "CONTA_DIGITAL",
+									"description": "Tipo de conta (CONTA_DIGITAL ou DINHEIRO_FISICO)"
+								},
+								{
+									"key": "status",
+									"value": "CONFIRMADA",
+									"description": "Status (CONFIRMADA, PENDENTE ou CANCELADA)"
+								},
+								{
+									"key": "dataInicio",
+									"value": "2024-05-01",
+									"description": "Data inicial do período"
+								},
+								{
+									"key": "dataFim",
+									"value": "2024-05-31",
+									"description": "Data final do período"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Atualizar Movimentação",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"tipoMovimentacao\": \"SAIDA\",\n  \"tipoConta\": \"DINHEIRO_FISICO\",\n  \"categoria\": \"MATERIAL_ESCRITORIO\",\n  \"descricao\": \"Compra de material de escritório atualizada\",\n  \"valor\": 75.30,\n  \"dataMovimentacao\": \"2024-05-10\",\n  \"status\": \"CONFIRMADA\",\n  \"observacao\": \"Nota fiscal emitida\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/financeiro/movimentacoes/1",
+							"host": ["{{baseUrl}}"],
+							"path": ["financeiro", "movimentacoes", "1"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Excluir/Cancelar Movimentação",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/financeiro/movimentacoes/1",
+							"host": ["{{baseUrl}}"],
+							"path": ["financeiro", "movimentacoes", "1"]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Relatórios Financeiros",
+			"item": [
+				{
+					"name": "Saldo Atual",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/financeiro/relatorios/saldo-atual",
+							"host": ["{{baseUrl}}"],
+							"path": ["financeiro", "relatorios", "saldo-atual"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Resumo Financeiro do Período",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/financeiro/relatorios/resumo?dataInicio=2024-05-01&dataFim=2024-05-31",
+							"host": ["{{baseUrl}}"],
+							"path": ["financeiro", "relatorios", "resumo"],
+							"query": [
+								{
+									"key": "dataInicio",
+									"value": "2024-05-01",
+									"description": "Data inicial do período"
+								},
+								{
+									"key": "dataFim",
+									"value": "2024-05-31",
+									"description": "Data final do período"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Movimentações por Categoria",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/financeiro/relatorios/por-categoria?dataInicio=2024-05-01&dataFim=2024-05-31",
+							"host": ["{{baseUrl}}"],
+							"path": ["financeiro", "relatorios", "por-categoria"],
+							"query": [
+								{
+									"key": "dataInicio",
+									"value": "2024-05-01",
+									"description": "Data inicial do período"
+								},
+								{
+									"key": "dataFim",
+									"value": "2024-05-31",
+									"description": "Data final do período"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Fluxo de Caixa Diário",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/financeiro/relatorios/fluxo-diario?dataInicio=2024-05-01&dataFim=2024-05-07",
+							"host": ["{{baseUrl}}"],
+							"path": ["financeiro", "relatorios", "fluxo-diario"],
+							"query": [
+								{
+									"key": "dataInicio",
+									"value": "2024-05-01",
+									"description": "Data inicial do período"
+								},
+								{
+									"key": "dataFim",
+									"value": "2024-05-07",
+									"description": "Data final do período"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Comparativo por Tipo de Conta",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/financeiro/relatorios/por-conta?dataInicio=2024-05-01&dataFim=2024-05-31",
+							"host": ["{{baseUrl}}"],
+							"path": ["financeiro", "relatorios", "por-conta"],
+							"query": [
+								{
+									"key": "dataInicio",
+									"value": "2024-05-01",
+									"description": "Data inicial do período"
+								},
+								{
+									"key": "dataFim",
+									"value": "2024-05-31",
+									"description": "Data final do período"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Maiores Movimentações",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/financeiro/relatorios/maiores-movimentacoes?dataInicio=2024-05-01&dataFim=2024-05-31&limite=5",
+							"host": ["{{baseUrl}}"],
+							"path": ["financeiro", "relatorios", "maiores-movimentacoes"],
+							"query": [
+								{
+									"key": "dataInicio",
+									"value": "2024-05-01",
+									"description": "Data inicial do período"
+								},
+								{
+									"key": "dataFim",
+									"value": "2024-05-31",
+									"description": "Data final do período"
+								},
+								{
+									"key": "limite",
+									"value": "5",
+									"description": "Quantidade de resultados (padrão: 10)"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Exemplos Práticos",
+			"item": [
+				{
+					"name": "Exemplo: Login e Token",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"admin@umadecruz.com\",\n  \"senha\": \"123456\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/auth/login",
+							"host": ["{{baseUrl}}"],
+							"path": ["auth", "login"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Exemplo: Criar Usuário Jovem",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"nome\": \"Maria Santos\",\n  \"email\": \"maria.santos@umadecruz.com\",\n  \"tipo\": \"USER\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/usuario",
+							"host": ["{{baseUrl}}"],
+							"path": ["usuario"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Exemplo: Criar Evento Jovem",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"titulo\": \"Noite de Louvor e Adoração\",\n  \"descricao\": \"Encontro especial do grupo de jovens com música, palavra e comunhão\",\n  \"data\": \"2024-05-25\",\n  \"inicio\": \"20:00:00\",\n  \"fim\": \"22:30:00\",\n  \"idUsuario\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/evento",
+							"host": ["{{baseUrl}}"],
+							"path": ["evento"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Exemplo: Entrada Financeira - Oferta",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"tipoMovimentacao\": \"ENTRADA\",\n  \"tipoConta\": \"DINHEIRO_FISICO\",\n  \"categoria\": \"DOACAO\",\n  \"descricao\": \"Oferta do encontro de jovens\",\n  \"valor\": 200.00,\n  \"dataMovimentacao\": \"2024-05-11\",\n  \"status\": \"CONFIRMADA\",\n  \"observacao\": \"Oferta espontânea - 20 participantes\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/financeiro/movimentacoes",
+							"host": ["{{baseUrl}}"],
+							"path": ["financeiro", "movimentacoes"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Exemplo: Saída Financeira - Lanche",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"tipoMovimentacao\": \"SAIDA\",\n  \"tipoConta\": \"DINHEIRO_FISICO\",\n  \"categoria\": \"EVENTOS\",\n  \"descricao\": \"Lanche para noite de louvor\",\n  \"valor\": 180.00,\n  \"dataMovimentacao\": \"2024-05-11\",\n  \"status\": \"CONFIRMADA\",\n  \"observacao\": \"Refrigerantes, salgados, doces - 30 pessoas\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/financeiro/movimentacoes",
+							"host": ["{{baseUrl}}"],
+							"path": ["financeiro", "movimentacoes"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Exemplo: Aviso para Grupo",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"titulo\": \"🎤 Noite de Louvor - Sábado 25/05\",\n  \"corpo\": \"Venham celebrar conosco! Teremos música, palavra e muita comunhão. Tragam seus amigos! 🎵✨\",\n  \"idUsuario\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/aviso",
+							"host": ["{{baseUrl}}"],
+							"path": ["aviso"]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:8080",
+			"type": "string"
+		},
+		{
+			"key": "token",
+			"value": "",
+			"type": "string",
+			"description": "Token JWT obtido no endpoint /auth/login"
+		}
+	]
+}
