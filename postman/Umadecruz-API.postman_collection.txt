@@ -128,6 +128,25 @@
 					"response": []
 				},
 				{
+					"name": "Listar Todos os Usuários",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/usuario/todos",
+							"host": ["{{baseUrl}}"],
+							"path": ["usuario", "todos"]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Alterar Senha",
 					"request": {
 						"method": "PUT",
@@ -145,7 +164,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"email\": \"joao.silva@umadecruz.com\",\n  \"senhaAtual\": \"123456\",\n  \"novaSenha\": \"novasenha123\"\n}",
+							"raw": "{\n  \"email\": \"joao.silva@umadecruz.com\",\n  \"senhaAntiga\": \"123456\",\n  \"novaSenha\": \"novasenha123\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -336,6 +355,163 @@
 							"raw": "{{baseUrl}}/evento/1/usuario/1",
 							"host": ["{{baseUrl}}"],
 							"path": ["evento", "1", "usuario", "1"]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Presenças em Eventos",
+			"item": [
+				{
+					"name": "Registrar Presença",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"idEvento\": 1,\n  \"idUsuario\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/usuario-evento/presenca",
+							"host": ["{{baseUrl}}"],
+							"path": ["usuario-evento", "presenca"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Consultar Presença",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/usuario-evento/presenca/1/1",
+							"host": ["{{baseUrl}}"],
+							"path": ["usuario-evento", "presenca", "1", "1"]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Relatórios de Presenças",
+			"item": [
+				{
+					"name": "Todos Eventos com Presenças",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/usuario-evento/eventos-com-presencas",
+							"host": ["{{baseUrl}}"],
+							"path": ["usuario-evento", "eventos-com-presencas"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Relatório por Evento",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/usuario-evento/relatorio/presenca-evento/1",
+							"host": ["{{baseUrl}}"],
+							"path": ["usuario-evento", "relatorio", "presenca-evento", "1"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Usuários com Maior Presença",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/usuario-evento/relatorio/usuarios-maior-presenca",
+							"host": ["{{baseUrl}}"],
+							"path": ["usuario-evento", "relatorio", "usuarios-maior-presenca"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Ranking de Presenças",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/usuario-evento/relatorio/ranking-presencas/10",
+							"host": ["{{baseUrl}}"],
+							"path": ["usuario-evento", "relatorio", "ranking-presencas", "10"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Estatísticas Gerais",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/usuario-evento/relatorio/estatisticas-presenca",
+							"host": ["{{baseUrl}}"],
+							"path": ["usuario-evento", "relatorio", "estatisticas-presenca"]
 						}
 					},
 					"response": []
@@ -1015,6 +1191,96 @@
 							"raw": "{{baseUrl}}/aviso",
 							"host": ["{{baseUrl}}"],
 							"path": ["aviso"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Exemplo: Registrar Presença",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"idEvento\": 1,\n  \"idUsuario\": 2\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/usuario-evento/presenca",
+							"host": ["{{baseUrl}}"],
+							"path": ["usuario-evento", "presenca"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Exemplo: Relatório de Presenças",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/usuario-evento/relatorio/presenca-evento/1",
+							"host": ["{{baseUrl}}"],
+							"path": ["usuario-evento", "relatorio", "presenca-evento", "1"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Exemplo: Ranking Top 5",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/usuario-evento/relatorio/ranking-presencas/5",
+							"host": ["{{baseUrl}}"],
+							"path": ["usuario-evento", "relatorio", "ranking-presencas", "5"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Exemplo: Todos Eventos com Presenças",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/usuario-evento/eventos-com-presencas",
+							"host": ["{{baseUrl}}"],
+							"path": ["usuario-evento", "eventos-com-presencas"]
 						}
 					},
 					"response": []

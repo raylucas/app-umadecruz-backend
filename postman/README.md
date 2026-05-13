@@ -35,6 +35,7 @@
 
 ### 👥 Usuários
 - **Criar Usuário** - `POST /usuario`
+- **Listar Todos** - `GET /usuario/todos`
 - **Buscar por ID** - `GET /usuario/id/{id}`
 - **Atualizar** - `PUT /usuario`
 - **Alterar Senha** - `PUT /usuario/alterarSenha`
@@ -45,8 +46,17 @@
 - **Listar da Semana** - `GET /evento/eventos/semana`
 - **Atualizar** - `PUT /evento`
 - **Excluir** - `DELETE /evento/id/{id}`
-- **Marcar Presença** - `POST /evento/usuario/presenca`
-- **Consultar Presença** - `GET /evento/{idEvento}/usuario/{idUsuario}`
+
+### 📋 Presenças em Eventos
+- **Registrar Presença** - `POST /usuario-evento/presenca`
+- **Consultar Presença** - `GET /usuario-evento/presenca/{idEvento}/{idUsuario}`
+
+### 📊 Relatórios de Presenças
+- **Relatório por Evento** - `GET /usuario-evento/relatorio/presenca-evento/{idEvento}`
+- **Todos Eventos com Presenças** - `GET /usuario-evento/eventos-com-presencas`
+- **Usuários com Maior Presença** - `GET /usuario-evento/relatorio/usuarios-maior-presenca`
+- **Ranking de Presenças** - `GET /usuario-evento/relatorio/ranking-presencas/{limite}`
+- **Estatísticas Gerais** - `GET /usuario-evento/relatorio/estatisticas-presenca`
 
 ### 📢 Avisos
 - **Criar Aviso** - `POST /aviso`
@@ -138,6 +148,37 @@ POST /token
   "token": "fcm_token_aqui",
   "idUsuario": 1
 }
+```
+
+### 📋 Registrar Presença em Evento
+```json
+POST /usuario-evento/presenca
+{
+  "idEvento": 1,
+  "idUsuario": 1
+}
+```
+
+### 📊 Exemplos de Relatórios
+
+#### Relatório de Presença por Evento
+```json
+GET /usuario-evento/relatorio/presenca-evento/1
+```
+
+#### Ranking dos 10 Usuários com Maior Presença
+```json
+GET /usuario-evento/relatorio/ranking-presencas/10
+```
+
+#### Estatísticas Gerais de Presença
+```json
+GET /usuario-evento/relatorio/estatisticas-presenca
+```
+
+#### Todos os Eventos com Presenças
+```json
+GET /usuario-evento/eventos-com-presencas
 ```
 
 ## Valores Possíveis

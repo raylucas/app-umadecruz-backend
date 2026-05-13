@@ -11,6 +11,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.security.access.prepost.PreAuthorize;
 
+import java.util.List;
+
 
 @RestController
 @RequestMapping("/usuario")
@@ -42,6 +44,12 @@ public class UsuarioController {
     public ResponseEntity<?> alterarSenha(@RequestBody AlterarSenhaDto dto){
         usuarioService.alterarSenha(dto);
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/todos")
+    @PreAuthorize("hasAnyRole('USER', 'FINANCIAL', 'ADMIN')")
+    public ResponseEntity<List<UsuarioDto>> listarTodos(){
+        return ResponseEntity.ok(usuarioService.listarTodos());
     }
 
 }
