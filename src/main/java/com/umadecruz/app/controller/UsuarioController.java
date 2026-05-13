@@ -20,7 +20,7 @@ public class UsuarioController {
     private final UsuarioService usuarioService;
 
     @PostMapping
-    @PreAuthorize("hasAnyRole('USER', 'FINANCIAL', 'ADMIN')")
+    @PreAuthorize("hasAnyRole('ADMIN')")
     public ResponseEntity<UsuarioDto> salvar(@RequestBody UsuarioCriacaoDto dto){
         return ResponseEntity.ok(usuarioService.salvar(dto));
     }
@@ -39,7 +39,7 @@ public class UsuarioController {
 
     @PutMapping("/alterarSenha")
     @PreAuthorize("hasAnyRole('USER', 'FINANCIAL', 'ADMIN')")
-    public ResponseEntity<?> excluir(@RequestBody AlterarSenhaDto dto){
+    public ResponseEntity<?> alterarSenha(@RequestBody AlterarSenhaDto dto){
         usuarioService.alterarSenha(dto);
         return ResponseEntity.ok().build();
     }

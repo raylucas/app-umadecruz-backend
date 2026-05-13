@@ -11,12 +11,6 @@ public enum CategoriaMovimentacao {
     VENDA,
     COMPRA,
     DOACAO,
-    SALARIO,
-    ALUGUEL,
-    SERVICOS,
-    IMPOSTOS,
-    MATERIAL_ESCRITORIO,
-    EVENTOS,
     OUTROS;
 
 }
