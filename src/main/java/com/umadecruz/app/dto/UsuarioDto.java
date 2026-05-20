@@ -52,7 +52,7 @@ public class UsuarioDto {
     @JsonProperty("dataBatismo")
     private LocalDate dataBatismo;
 
-    @Pattern(regexp = "^(ADMIN|USER)$", message = "Campo tipo deve ser ADMIN ou USER")
+    @Pattern(regexp = "^(ADMIN|USER|FINANCIAL)$", message = "Campo tipo deve ser ADMIN|USER|FINANCIAL")
     @JsonProperty("tipo")
     private String tipo;
 
@@ -61,5 +61,8 @@ public class UsuarioDto {
 
     @JsonProperty("dataCriacao")
     private LocalDate dataCriacao;
+
+    @JsonProperty("foto")
+    private String foto;
 
 }

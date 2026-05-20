@@ -47,4 +47,13 @@ public class EventoCriacaoDto implements Serializable {
     @JsonProperty("idUsuario")
     private Integer idUsuario;
 
+    @JsonProperty("recorrente")
+    private Boolean recorrente;
+
+    @JsonProperty("tipoRecorrencia")
+    private String tipoRecorrencia;
+
+    @JsonProperty("dataFimRecorrencia")
+    private LocalDate dataFimRecorrencia;
+
 }

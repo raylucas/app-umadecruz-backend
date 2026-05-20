@@ -6,10 +6,10 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @AllArgsConstructor
-public enum TipoUsuario {
+public enum StatusMovimentacao {
 
-    ADMIN,
-    FINANCIAL,
-    USER;
+    CONFIRMADA,
+    PENDENTE,
+    CANCELADA;
 
 }

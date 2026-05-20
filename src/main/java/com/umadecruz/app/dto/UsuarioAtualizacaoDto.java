@@ -62,4 +62,7 @@ public class UsuarioAtualizacaoDto implements Serializable {
     @JsonProperty("dataBatismo")
     private LocalDate dataBatismo;
 
+    @JsonProperty("foto")
+    private String foto;
+
 }

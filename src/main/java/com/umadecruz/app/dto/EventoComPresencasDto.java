@@ -1,7 +1,6 @@
 package com.umadecruz.app.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,19 +10,19 @@ import lombok.NoArgsConstructor;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
 
 @Builder
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
-@JsonInclude(JsonInclude.Include.NON_NULL)
-public class EventoDto implements Serializable {
+public class EventoComPresencasDto implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @JsonProperty("id")
-    private Integer id;
+    @JsonProperty("idEvento")
+    private Integer idEvento;
 
     @JsonProperty("titulo")
     private String titulo;
@@ -34,25 +33,18 @@ public class EventoDto implements Serializable {
     @JsonProperty("data")
     private LocalDate data;
 
-    @JsonProperty("inicio")
+    @JsonProperty("horaInicio")
     private LocalTime inicio;
 
-    @JsonProperty("fim")
+    @JsonProperty("horaFim")
     private LocalTime fim;
 
-    @JsonProperty("usuario")
-    private UsuarioDto usuario;
+    @JsonProperty("totalPresentes")
+    private Integer totalPresentes;
+
+    @JsonProperty("usuariosPresentes")
+    private List<UsuarioPresencaDto> usuariosPresentes;
 
     @JsonProperty("dataCriacao")
     private LocalDate dataCriacao;
-
-    @JsonProperty("recorrente")
-    private Boolean recorrente;
-
-    @JsonProperty("tipoRecorrencia")
-    private String tipoRecorrencia;
-
-    @JsonProperty("dataFimRecorrencia")
-    private LocalDate dataFimRecorrencia;
-
 }
