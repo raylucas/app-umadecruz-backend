@@ -47,4 +47,13 @@ public class EventoAtualizacaoDto implements Serializable {
     @JsonProperty("fim")
     private LocalTime fim;
 
+    @JsonProperty("recorrente")
+    private Boolean recorrente;
+
+    @JsonProperty("tipoRecorrencia")
+    private String tipoRecorrencia;
+
+    @JsonProperty("dataFimRecorrencia")
+    private LocalDate dataFimRecorrencia;
+
 }

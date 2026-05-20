@@ -17,6 +17,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.Base64;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -40,10 +41,11 @@ public class UsuarioService {
         var senha = SenhaUtil.gerarSenha(tamanhoSenha);
         usuario.setSenha(passwordEncoder.encode(senha));
         usuario.setDataCriacao(LocalDate.now());
+        if (dto.getFoto() != null && !dto.getFoto().isEmpty()) {
+            usuario.setFoto(converterBase64ParaBytes(dto.getFoto()));
+        }
         repository.save(usuario);
-        var usuarioDto = modelMapper.map(usuario, UsuarioDto.class);
-        usuarioDto.setSenha(senha);
-        return usuarioDto;
+        return converterUsuarioParaDto(usuario);
     }
 
     public UsuarioDto atualizar(UsuarioAtualizacaoDto dto){
@@ -57,8 +59,11 @@ public class UsuarioService {
         usuario.setCep(dto.getCep());
         usuario.setCongregacao(dto.getCongregacao());
         usuario.setDataBatismo(dto.getDataBatismo());
+        if (dto.getFoto() != null && !dto.getFoto().isEmpty()) {
+            usuario.setFoto(converterBase64ParaBytes(dto.getFoto()));
+        }
         repository.save(usuario);
-        return modelMapper.map(usuario, UsuarioDto.class);
+        return converterUsuarioParaDto(usuario);
     }
 
     public void alterarSenha(AlterarSenhaDto dto){
@@ -76,7 +81,7 @@ public class UsuarioService {
     }
 
     public UsuarioDto buscarInfoUsuario(Integer id){
-        return modelMapper.map(this.consultarPorId(id), UsuarioDto.class);
+        return converterUsuarioParaDto(this.consultarPorId(id));
     }
 
     public Optional<Usuario> consultarPorEmail(String email){
@@ -89,8 +94,23 @@ public class UsuarioService {
 
     public List<UsuarioDto> listarTodos(){
         return repository.findAll().stream()
-                .map(usuario -> modelMapper.map(usuario, UsuarioDto.class))
+                .map(this::converterUsuarioParaDto)
                 .collect(Collectors.toList());
+    }
+
+    private byte[] converterBase64ParaBytes(String base64) {
+        if (base64 == null || base64.isEmpty()) {
+            return null;
+        }
+        return Base64.getDecoder().decode(base64);
+    }
+
+    private UsuarioDto converterUsuarioParaDto(Usuario usuario) {
+        UsuarioDto dto = modelMapper.map(usuario, UsuarioDto.class);
+        if (usuario.getFoto() != null) {
+            dto.setFoto(Base64.getEncoder().encodeToString(usuario.getFoto()));
+        }
+        return dto;
     }
 
 

@@ -4,6 +4,7 @@ import com.umadecruz.app.dto.EventoAtualizacaoDto;
 import com.umadecruz.app.dto.EventoCriacaoDto;
 import com.umadecruz.app.dto.EventoDto;
 import com.umadecruz.app.model.Evento;
+import com.umadecruz.app.model.TipoRecorrencia;
 import com.umadecruz.app.repository.EventoRepository;
 import com.umadecruz.app.exception.EventoNaoEncontradoException;
 import com.umadecruz.app.util.MapperUtil;
@@ -31,6 +32,12 @@ public class EventoService {
         var usuarioEvento = usuarioService.consultarPorId(requestDto.getIdUsuario());
         evento.setUsuario(usuarioEvento);
         evento.setDataCriacao(LocalDate.now());
+        
+        // Converter String de tipoRecorrencia para Enum se fornecido
+        if (requestDto.getTipoRecorrencia() != null) {
+            evento.setTipoRecorrencia(TipoRecorrencia.valueOf(requestDto.getTipoRecorrencia().toUpperCase()));
+        }
+        
         repository.save(evento);
         return modelMapper.map(evento, EventoDto.class);
     }
@@ -42,6 +49,18 @@ public class EventoService {
         evento.setData(requestDto.getData());
         evento.setInicio(requestDto.getInicio());
         evento.setFim(requestDto.getFim());
+        
+        // Atualizar campos de recorrência se fornecidos
+        if (requestDto.getRecorrente() != null) {
+            evento.setRecorrente(requestDto.getRecorrente());
+        }
+        if (requestDto.getTipoRecorrencia() != null) {
+            evento.setTipoRecorrencia(TipoRecorrencia.valueOf(requestDto.getTipoRecorrencia().toUpperCase()));
+        }
+        if (requestDto.getDataFimRecorrencia() != null) {
+            evento.setDataFimRecorrencia(requestDto.getDataFimRecorrencia());
+        }
+        
         repository.save(evento);
         return modelMapper.map(evento, EventoDto.class);
     }

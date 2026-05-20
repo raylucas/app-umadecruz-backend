@@ -33,5 +33,7 @@ public class UsuarioCriacaoDto implements Serializable {
     @JsonProperty("tipo")
     private String tipo;
 
+    @JsonProperty("foto")
+    private String foto;
 
 }

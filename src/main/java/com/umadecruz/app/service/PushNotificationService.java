@@ -30,13 +30,20 @@ public class PushNotificationService {
                 String messageId = FirebaseMessaging.getInstance().send(message);
                 log.info("Push enviado com sucesso | token={} | messageId={}", token, messageId);
             } catch (FirebaseMessagingException e) {
-                log.error(
-                        "Erro ao enviar push | token={} | errorCode={} | message={}",
-                        token,
-                        e.getMessagingErrorCode(),
-                        e.getMessage(),
-                        e
-                );
+                if (e.getMessagingErrorCode().name().equals("SENDER_ID_MISMATCH")) {
+                    log.warn(
+                            "Token inválido (SenderId mismatch) - possivelmente do Expo Go. Ignorando este token. | token={}",
+                            token
+                    );
+                } else {
+                    log.error(
+                            "Erro ao enviar push | token={} | errorCode={} | message={}",
+                            token,
+                            e.getMessagingErrorCode(),
+                            e.getMessage(),
+                            e
+                    );
+                }
             } catch (Exception e) {
                 log.error("Erro inesperado ao enviar push | token={}", token, e);
             }

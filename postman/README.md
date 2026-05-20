@@ -99,7 +99,8 @@ POST /usuario
 {
   "nome": "João Silva",
   "email": "joao.silva@umadecruz.com",
-  "tipo": "USER"
+  "tipo": "USER",
+  "foto": "/9j/4AAQSkZJRgABAQEAYABgAAD/2wBD..."
 }
 ```
 

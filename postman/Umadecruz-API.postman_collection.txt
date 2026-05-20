@@ -60,7 +60,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"nome\": \"João Silva\",\n  \"email\": \"joao.silva@umadecruz.com\",\n  \"tipo\": \"USER\"\n}",
+							"raw": "{\n  \"nome\": \"João Silva\",\n  \"email\": \"joao.silva@umadecruz.com\",\n  \"tipo\": \"USER\",\n  \"foto\": \"/9j/4AAQSkZJRgABAQEAYABgAAD/2wBD...\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -112,7 +112,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"id\": 1,\n  \"nome\": \"João Silva Atualizado\",\n  \"email\": \"joao.silva@umadecruz.com\",\n  \"dataNascimento\": \"1990-05-15\",\n  \"telefone\": \"(11) 98765-4321\",\n  \"endereco\": \"Rua das Flores, 123\",\n  \"dataBatismo\": \"2020-01-15\",\n  \"congregacao\": \"Sede\",\n  \"tipo\": \"USER\"\n}",
+							"raw": "{\n  \"id\": 1,\n  \"nome\": \"João Silva Atualizado\",\n  \"email\": \"joao.silva@umadecruz.com\",\n  \"dataNascimento\": \"1990-05-15\",\n  \"telefone\": \"(11) 98765-4321\",\n  \"endereco\": \"Rua das Flores, 123\",\n  \"dataBatismo\": \"2020-01-15\",\n  \"congregacao\": \"Sede\",\n  \"tipo\": \"USER\",\n  \"foto\": \"/9j/4AAQSkZJRgABAQEAYABgAAD/2wBD...\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -202,7 +202,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"titulo\": \"Encontro de Jovens\",\n  \"descricao\": \"Encontro mensal do grupo de jovens para estudo e comunhão\",\n  \"data\": \"2024-05-20\",\n  \"inicio\": \"19:00:00\",\n  \"fim\": \"21:00:00\",\n  \"idUsuario\": 1\n}",
+							"raw": "{\n  \"titulo\": \"Encontro de Jovens\",\n  \"descricao\": \"Encontro mensal do grupo de jovens para estudo e comunhão\",\n  \"data\": \"2024-05-20\",\n  \"inicio\": \"19:00:00\",\n  \"fim\": \"21:00:00\",\n  \"idUsuario\": 1,\n  \"recorrente\": false,\n  \"tipoRecorrencia\": null,\n  \"dataFimRecorrencia\": null\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -273,7 +273,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"id\": 1,\n  \"titulo\": \"Encontro de Jovens - Atualizado\",\n  \"descricao\": \"Encontro mensal do grupo de jovens para estudo e comunhão - Tema: Fé e Juventude\",\n  \"data\": \"2024-05-20\",\n  \"inicio\": \"19:00:00\",\n  \"fim\": \"22:00:00\"\n}",
+							"raw": "{\n  \"id\": 1,\n  \"titulo\": \"Encontro de Jovens - Atualizado\",\n  \"descricao\": \"Encontro mensal do grupo de jovens para estudo e comunhão - Tema: Fé e Juventude\",\n  \"data\": \"2024-05-20\",\n  \"inicio\": \"19:00:00\",\n  \"fim\": \"22:00:00\",\n  \"recorrente\": false,\n  \"tipoRecorrencia\": null,\n  \"dataFimRecorrencia\": null\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -355,6 +355,39 @@
 							"raw": "{{baseUrl}}/evento/1/usuario/1",
 							"host": ["{{baseUrl}}"],
 							"path": ["evento", "1", "usuario", "1"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Criar Evento Recorrente (Semanal)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"titulo\": \"Culto de Jovens\",\n  \"descricao\": \"Culto semanal do grupo de jovens - toda terça-feira\",\n  \"data\": \"2024-05-21\",\n  \"inicio\": \"19:30:00\",\n  \"fim\": \"21:00:00\",\n  \"idUsuario\": 1,\n  \"recorrente\": true,\n  \"tipoRecorrencia\": \"SEMANAL\",\n  \"dataFimRecorrencia\": \"2024-12-31\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/evento",
+							"host": ["{{baseUrl}}"],
+							"path": ["evento"]
 						}
 					},
 					"response": []
@@ -1048,7 +1081,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"nome\": \"Maria Santos\",\n  \"email\": \"maria.santos@umadecruz.com\",\n  \"tipo\": \"USER\"\n}",
+							"raw": "{\n  \"nome\": \"Maria Santos\",\n  \"email\": \"maria.santos@umadecruz.com\",\n  \"tipo\": \"USER\",\n  \"foto\": \"/9j/4AAQSkZJRgABAQEAYABgAAD/2wBD...\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"

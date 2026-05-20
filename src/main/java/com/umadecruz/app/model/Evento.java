@@ -43,5 +43,14 @@ public class Evento {
     @Column(name = "DATA_CRIACAO")
     private LocalDate dataCriacao;
 
+    @Column(name = "RECORRENTE")
+    private Boolean recorrente;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "TIPO_RECORRENCIA")
+    private TipoRecorrencia tipoRecorrencia;
+
+    @Column(name = "DATA_FIM_RECORRENCIA")
+    private LocalDate dataFimRecorrencia;
 
 }

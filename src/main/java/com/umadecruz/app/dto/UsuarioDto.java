@@ -62,4 +62,7 @@ public class UsuarioDto {
     @JsonProperty("dataCriacao")
     private LocalDate dataCriacao;
 
+    @JsonProperty("foto")
+    private String foto;
+
 }

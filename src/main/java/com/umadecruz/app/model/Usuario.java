@@ -60,4 +60,7 @@ public class Usuario {
 
     @Column(name = "DATA_CRIACAO")
     private LocalDate dataCriacao;
+
+    @Column(name = "FOTO")
+    private byte[] foto;
 }
