@@ -3,13 +3,14 @@ package com.umadecruz.app.dto;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.time.LocalDate;
 
 @Builder
 @Data
@@ -17,23 +18,23 @@ import java.io.Serializable;
 @AllArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class UsuarioCriacaoDto implements Serializable {
+public class ResumoFinanceiroDto implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @NotBlank(message = "O campo nome é obrigatório.")
-    @JsonProperty("nome")
-    private String nome;
+    @JsonProperty("totalEntradas")
+    private BigDecimal totalEntradas;
 
-    @NotBlank(message = "O campo email é obrigatório.")
-    @JsonProperty("email")
-    private String email;
+    @JsonProperty("totalSaidas")
+    private BigDecimal totalSaidas;
 
-    @NotBlank(message = "O campo tipo é obrigatório.")
-    @JsonProperty("tipo")
-    private String tipo;
+    @JsonProperty("saldoLiquido")
+    private BigDecimal saldoLiquido;
 
-    @JsonProperty("foto")
-    private String foto;
+    @JsonProperty("dataInicio")
+    private LocalDate dataInicio;
+
+    @JsonProperty("dataFim")
+    private LocalDate dataFim;
 
 }
